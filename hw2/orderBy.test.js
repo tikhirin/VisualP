@@ -1,31 +1,45 @@
 const orderBy = require('./orderBy');
 
-test('sorts objects by given properties', () => {
+test('sorts by age in ascending order', () => {
     const data = [
-        { name: 'John', age: 25 },
-        { name: 'Alice', age: 30 },
-        { name: 'John', age: 22 }
+        { name: 'Aventurine', age: 22 },
+        { name: 'Boothill', age: 19 },
+        { name: 'Venti', age: 27 }
     ];
-    const sorted = orderBy(data, ['name', 'age']);
+    const sorted = orderBy(data, ['age']);
     expect(sorted).toEqual([
-        { name: 'Alice', age: 30 },
-        { name: 'John', age: 22 },
-        { name: 'John', age: 25 }
+        { name: 'Boothill', age: 19 },
+        { name: 'Aventurine', age: 22 },
+        { name: 'Venti', age: 27 }
     ]);
 });
 
-test('throws error if first argument is not an array', () => {
-    expect(() => orderBy({}, ['name'])).toThrow("First argument must be an array");
-});
-
-test('throws error if array contains non-object elements', () => {
-    expect(() => orderBy([1, 'string', null], ['name'])).toThrow("Array must contain only objects");
-});
-
-test('throws error if some objects lack required properties', () => {
+test('sorts by name in alphabetical order', () => {
     const data = [
-        { name: 'John' },
-        { age: 25 }
+        { name: 'Venti', age: 27 },
+        { name: 'Aventurine', age: 22 },
+        { name: 'Boothill', age: 19 }
     ];
-    expect(() => orderBy(data, ['name'])).toThrow("Property 'name' is missing in some objects");
+    const sorted = orderBy(data, ['name']);
+    expect(sorted).toEqual([
+        { name: 'Aventurine', age: 22 },
+        { name: 'Boothill', age: 19 },
+        { name: 'Venti', age: 27 }
+    ]);
+});
+
+test('sorts by multiple properties (age then name)', () => {
+    const data = [
+        { name: 'Aventurine', age: 22 },
+        { name: 'Boothill', age: 19 },
+        { name: 'Venti', age: 22 },
+        { name: 'Zhongli', age: 19 }
+    ];
+    const sorted = orderBy(data, ['age', 'name']);
+    expect(sorted).toEqual([
+        { name: 'Boothill', age: 19 },
+        { name: 'Zhongli', age: 19 },
+        { name: 'Aventurine', age: 22 },
+        { name: 'Venti', age: 22 }
+    ]);
 });

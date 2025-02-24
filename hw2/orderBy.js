@@ -1,15 +1,15 @@
 function orderBy(arr, properties) {
     if (!Array.isArray(arr)) {
-        throw new Error("First argument must be an array");
+        throw new Error("First array.");
     }
     
     arr.forEach(item => {
         if (typeof item !== 'object' || item === null) {
-            throw new Error("Array must contain only objects");
+            throw new Error("Only objects.");
         }
         properties.forEach(prop => {
             if (!(prop in item)) {
-                throw new Error(`Property '${prop}' is missing in some objects`);
+                throw new Error(`Property '${prop}' is not.`);
             }
         });
     });
